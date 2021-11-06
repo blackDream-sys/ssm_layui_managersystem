@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bdqn.dao.BillMapper">
+<!--    #{}里面的统一根据实体类属性来写-->
+
+    <!--#{},${}区别
+    1）MyBatis在处理#{}时，会将SQL中的#{}替换为?号，使用PreparedStatement的set方法来赋值；MyBatis在处理 $ { } 时，直接读取内容。
+
+    2）使用 #{} 可以有效的防止SQL注入，提高系统安全性。
+    3）#{}预编译，${}是字符串替换-->
+
+<!--    resultType和resultMap区别：前者如果实体类和字段不一致，页面无法显示数据,后者要配置映射关系就不会出现问题-->
+    <select id="findBillList" resultType="com.bdqn.entity.Bill">
+--         账单和账单类型表联合查询，前端页面有下面三个搜索条件，所以这样写；按id降序排
+        select b.*,t.name as typename from bills b inner join billtype t on b.typeid=t.id
+        <where>
+            <if test="typeId!=null">
+                and b.typeId=#{typeId}
+            </if>
+            <if test="startDate!=null">
+                and b.billTime &gt;#{startDate}
+            </if>
+            <if test="endDate!=null">
+                and b.billTime &lt;#{endDate}
+            </if>
+        </where>
+        order by id desc
+    </select>
+<!--    在数据库用这条，时间用now（），秒插多条数据-->
+    <insert id="addBill">
+        insert into bills(title,billtime,typeid,price,remark) values(#{title},#{billTime},#{typeId},#{price},#{remark})
+    </insert>
+<!--    根据账单id修改账单表所有的字段-->
+    <update id="updateBill">
+        update Bills
+        <set>
+            <if test="title!=null and title!=''">
+                title=#{title},
+            </if>
+            <if test="billTime!=null">
+                billTime=#{billTime},
+            </if>
+            <if test="typeId!=null">
+                typeId=#{typeId},
+            </if>
+            <if test="price!=null">
+                price=#{price},
+            </if>
+            <if test="remark!=null and remark!=''"></if>
+                remark=#{remark},
+        </set>
+        where id=#{id}
+    </update>
+<!--    根据id删除账单，批量删除也用这条-->
+    <delete id="deleteById">
+        delete from bills where id=#{id}
+    </delete>
+</mapper>
