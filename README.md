@@ -5,7 +5,7 @@
 
 关于：
 整合SSM框架（SpringMVC + Spring + MyBatis）+layui，全栈开发，学习完SSM整合后建议继续研究，
-学习spring boot，springcloudalibaba，mybatisplus，mq，redis等技术，提高让开发效率
+学习spring boot，springcloudalibaba，mybatisplus，mq，redis等技术，提高开发效率
 
 
 
