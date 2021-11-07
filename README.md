@@ -1,5 +1,7 @@
 # ssm_layui_managersystem
-首先说下，博主csdn：https://blog.csdn.net/wanggang182007/article/details/121192637?spm=1001.2014.3001.5501有github上传项目教程。
+首先说下，博主
+csdn：https://blog.csdn.net/wanggang182007/article/details/121192637?spm=1001.2014.3001.5501
+有上传项目到github教程。
 
 
 
